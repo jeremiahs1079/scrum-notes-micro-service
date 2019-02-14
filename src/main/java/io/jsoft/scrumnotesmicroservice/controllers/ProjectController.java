@@ -1,7 +1,7 @@
 package io.jsoft.scrumnotesmicroservice.controllers;
 
 import io.jsoft.scrumnotesmicroservice.model.Project;
-import io.jsoft.scrumnotesmicroservice.repositories.ProjectRepository;
+import io.jsoft.scrumnotesmicroservice.services.ProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,27 +15,25 @@ import java.util.Optional;
 public class ProjectController {
 
     @Autowired
-    ProjectRepository projectRepository;
+    private ProjectService projectService;
 
     // create methods
     @PostMapping("/add")
     public Project addProject(@RequestBody Project project) {
-        log.info("Starting Add Method");
-        log.info("Project to add: {}", project);
-        Project savedProject = projectRepository.save(project);
 
-        return savedProject;
+        return projectService.saveProject(project);
     }
+
     // update methods
     @PutMapping("/update")
     public Project updateProject(@RequestBody Project project) {
-        Project projectToUpdate = this.projectRepository.findById(project.getId());
+        Project projectToUpdate = this.projectService.getProjectById(project.getId());
 
         if(projectToUpdate != null) {
-            projectRepository.save(project);
+            projectService.saveProject(project);
         }
 
-        return projectRepository.findById(project.getId());
+        return projectService.getProjectById(project.getId());
     }
 
     //read methods
@@ -43,15 +41,15 @@ public class ProjectController {
     public List getAll(@RequestParam(value = "projectname") Optional<String> projectName) {
 
         if(projectName.isPresent()) {
-            return projectRepository.findByProjectName(projectName.get());
+            return projectService.getProjectByName(projectName.get());
         }
 
-        return (List) projectRepository.findAll();
+        return projectService.getAllProjects();
     }
 
     @GetMapping("/{id}")
     public Project getById(@PathVariable long id) {
-        return projectRepository.findById(id);
+        return projectService.getProjectById(id);
     }
 
 
@@ -59,7 +57,7 @@ public class ProjectController {
     // delete methods
     @DeleteMapping("/{id}")
     public void deleteProject(@PathVariable long id) {
-        projectRepository.deleteById(id);
+        projectService.deleteProject(id);
     }
 
 }
