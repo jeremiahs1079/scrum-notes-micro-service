@@ -4,6 +4,7 @@ import io.jsoft.scrumnotesmicroservice.model.Project;
 import io.jsoft.scrumnotesmicroservice.services.ProjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class ProjectController {
 
     // create methods
     @PostMapping("/add")
+    @ResponseStatus(HttpStatus.CREATED)
     public Project addProject(@RequestBody Project project) {
 
         return projectService.saveProject(project);
