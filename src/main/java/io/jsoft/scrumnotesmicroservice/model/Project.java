@@ -3,6 +3,7 @@ package io.jsoft.scrumnotesmicroservice.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -16,4 +17,11 @@ public class Project {
     private long id;
     @Column(name = "project_name")
     private String projectName;
+    @Column(name="description")
+    private String description;
+    @Column(name="start_date")
+    private Date startDate;
+    @Column(name="end_date")
+    private Date endDte;
+
 }

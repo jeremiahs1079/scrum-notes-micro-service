@@ -2,6 +2,7 @@ package io.jsoft.scrumnotesmicroservice.controllers;
 
 import io.jsoft.scrumnotesmicroservice.model.Project;
 import io.jsoft.scrumnotesmicroservice.services.ProjectService;
+import io.jsoft.scrumnotesmicroservice.services.TagService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,10 +14,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/projects")
 @Slf4j
+@CrossOrigin(origins = "*")
 public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private TagService tagService;
 
     // create methods
     @PostMapping("/add")
@@ -51,6 +56,9 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     public Project getById(@PathVariable long id) {
+//        List tags = tagService.getProjectTags(id);
+
+//        log.info("Tags: {}", tags);
         return projectService.getProjectById(id);
     }
 

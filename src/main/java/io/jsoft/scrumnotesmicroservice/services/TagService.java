@@ -7,6 +7,7 @@ import java.util.List;
 public interface TagService {
     List getAllTags();
     List getAllTagsByName(String tagName);
+    List getProjectTags(long id);
     Tag getTagById(long id);
     Tag addNewTag(Tag tagToAdd);
     Tag updateTag(Tag tagToUpdate);

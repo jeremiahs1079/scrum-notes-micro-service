@@ -42,4 +42,9 @@ public class TagServiceIMPL implements TagService {
     public List getAllTagsByName(String tagName) {
         return tagRepository.findByTagName(tagName);
     }
+
+    @Override
+    public List getProjectTags(long id) {
+        return tagRepository.getProjectTags(id);
+    }
 }
