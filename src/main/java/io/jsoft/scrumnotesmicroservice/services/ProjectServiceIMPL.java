@@ -1,6 +1,7 @@
 package io.jsoft.scrumnotesmicroservice.services;
 
 import io.jsoft.scrumnotesmicroservice.model.Project;
+import io.jsoft.scrumnotesmicroservice.model.ProjectInfo;
 import io.jsoft.scrumnotesmicroservice.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,10 @@ public class ProjectServiceIMPL implements ProjectService {
 
     @Autowired
     private ProjectRepository projectRepository;
+    @Autowired
+    private ScrumNoteService scrunNoteService;
+    @Autowired
+    private TagService tagService;
 
     @Override
     public List getAllProjects() {
@@ -36,5 +41,15 @@ public class ProjectServiceIMPL implements ProjectService {
     @Override
     public void deleteProject(long id) {
         projectRepository.deleteById(id);
+    }
+
+    @Override
+    public ProjectInfo getProjectInfo(long id) {
+        ProjectInfo projectInfo = new ProjectInfo();
+
+        projectInfo.setProject(projectRepository.findById(id));
+        projectInfo.setNotes(scrunNoteService.getAllScrumNotesForProject(id));
+
+        return projectInfo;
     }
 }

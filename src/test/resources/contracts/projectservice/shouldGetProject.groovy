@@ -5,19 +5,11 @@ import org.springframework.cloud.contract.spec.Contract
 Contract.make {
     description("When a POST request with a Project is made, the created project is returned")
     request {
-        method 'POST'
-        url '/projects/add'
-        body(
-                projectName: "Test Project",
-                description: "Test Project Description",
-
-        )
-        headers {
-            contentType(applicationJson())
-        }
+        method 'GET'
+        url '/projects/1'
     }
     response {
-        status 201
+        status 200
         body(
                 id: 1,
                 projectName: "Test Project",

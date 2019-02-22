@@ -1,6 +1,7 @@
 package io.jsoft.scrumnotesmicroservice.controllers;
 
 import io.jsoft.scrumnotesmicroservice.model.Project;
+import io.jsoft.scrumnotesmicroservice.model.ProjectInfo;
 import io.jsoft.scrumnotesmicroservice.services.ProjectService;
 import io.jsoft.scrumnotesmicroservice.services.TagService;
 import lombok.extern.slf4j.Slf4j;
@@ -56,10 +57,13 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     public Project getById(@PathVariable long id) {
-//        List tags = tagService.getProjectTags(id);
 
-//        log.info("Tags: {}", tags);
         return projectService.getProjectById(id);
+    }
+
+    @GetMapping("/info/{id}")
+    public ProjectInfo getProjectInfo(@PathVariable long id) {
+        return projectService.getProjectInfo(id);
     }
 
 
